@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Smart Disease Predictor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="card">
+    <h1><i class="fa-solid fa-heart-pulse"></i> Disease Predictor</h1>
+    <p>Pick symptoms to see what you're prone to.</p>
+
+    <form method="POST">
+      <label>Select your symptoms:</label><br>
+      <div class="checkbox-group">
+        {% for symptom in symptoms_list %}
+        <label class="checkbox-label">
+      <input type="checkbox" name="symptoms" value="{{ symptom }}">
+      {{ symptom.replace('_', ' ').capitalize() }}
+    </label><br>
+      {% endfor %}
+    </div>
+
+      <br><br>
+      <button type="submit"><i class="fa-solid fa-stethoscope"></i> Predict</button>
+    </form>
+
+    {% if prediction %}
+      <div class="result animated">
+        <i class="fa-solid fa-user-doctor"></i>
+        <h2>Diagnosis: {{ prediction }}</h2>
+        <p>{{ advice }}</p>
+      </div>
+    {% endif %}
+
+    <div class="note">
+      ⚠️ This tool is not a substitute for professional medical advice.
+    </div>
+  </div>
+</body>
+</html>
